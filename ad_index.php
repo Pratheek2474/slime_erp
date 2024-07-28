@@ -11,10 +11,12 @@ if(!isset($_SESSION['roll']) || $type != 'admin'){
 ?>
 
 <?php
-$query1 = mysqli_query($conn,"SELECT COUNT(roll) AS tot_std FROM info GROUP BY gender");
-$query1_res = mysqli_fetch_all($query1,MYSQLI_ASSOC);
-$tot_std_female = $query1_res[0]['tot_std'];
-$tot_std_male = $query1_res[1]['tot_std'];
+$query_male = mysqli_query($conn,"SELECT COUNT(roll) AS tot_std FROM info WHERE gender='male'");
+$query_female = mysqli_query($conn,"SELECT COUNT(roll) AS tot_std FROM info WHERE gender='female'");
+$query1_res_male = mysqli_fetch_all($query_male,MYSQLI_ASSOC);
+$query1_res_female = mysqli_fetch_all($query_female,MYSQLI_ASSOC);
+$tot_std_female = $query1_res_female[0]['tot_std'];
+$tot_std_male = $query1_res_male[0]['tot_std'];
 $tot_std = $tot_std_male + $tot_std_female;
 $query2 = mysqli_query($conn,"SELECT COUNT(roll) AS tot FROM fee GROUP BY due_amt");
 $query2_res = mysqli_fetch_all($query2,MYSQLI_ASSOC);
